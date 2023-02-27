@@ -36,3 +36,8 @@ jobs:
            java-version: '18'
       - name: Build Package
         run: bash ./gradlew packageReleaseDmg --stacktrace
+      - name: Upload Package
+        uses: actions/upload-artifact@v3.1.1
+        with:
+             name: DeskTopApp
+             path: DesktopApp/build/compose/binaries/main-release/dmg/DeskTopApp-1.0.0.dmg
