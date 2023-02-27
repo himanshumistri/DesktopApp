@@ -1,0 +1,38 @@
+name: Build Desktop App
+
+on:
+  # Triggers the workflow on push or pull request events but only for default and protected branches
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+  schedule:
+     - cron: '34 17 * * 0'
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+env:
+  # Release tag associated with version of Detekt to be installed
+  # SARIF support (required for this workflow) was introduced in Detekt v1.15.0
+  DETEKT_RELEASE_TAG: v1.15.0
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+# This workflow contains a single job called "scan"
+ #Add new job for the Android Apk build
+  DeskApp:
+    name: Generate DeskApp
+    # Runs on Define which system to be used to build the source code ubuntu-20.04 or ubuntu-18.04, For
+    # Mac OS one can use macos-12
+    runs-on: macos-12
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Setup JDK
+        uses: actions/setup-java@v3
+        with:
+           distribution: 'corretto'
+           java-version: '18'
+      - name: Build Package
+        run: bash ./gradlew packageReleaseDmg --stacktrace
