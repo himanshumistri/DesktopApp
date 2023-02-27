@@ -21,7 +21,7 @@ env:
 jobs:
 # This workflow contains a single job called "scan"
  #Add new job for the Android Apk build
-  DeskApp:
+  DeskAppMacOs:
     name: Generate DeskApp
     # Runs on Define which system to be used to build the source code ubuntu-20.04 or ubuntu-18.04, For
     # Mac OS one can use macos-12
@@ -40,4 +40,25 @@ jobs:
         uses: actions/upload-artifact@v3.1.1
         with:
              name: DeskTopApp
-             path: DesktopApp/build/compose/binaries/main-release/dmg/DeskTopApp-1.0.0.dmg
+             path: DesktopApp/DesktopApp/build/compose/binaries/main-release/dmg/DeskTopApp-1.0.0.dmg
+
+  DeskAppLinux:
+    name: Generate DeskApp
+    # Runs on Define which system to be used to build the source code ubuntu-20.04 or ubuntu-18.04, For
+    # Mac OS one can use macos-12
+    runs-on: ubuntu-18.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Setup JDK
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'corretto'
+          java-version: '18'
+      - name: Build Package
+        run: bash ./gradlew packageReleaseDeb --stacktrace
+#      - name: Upload Package
+#        uses: actions/upload-artifact@v3.1.1
+#        with:
+#          name: DeskTopApp
+#          path: DesktopApp/build/compose/binaries/main-release/dmg/DeskTopApp-1.0.0.*
