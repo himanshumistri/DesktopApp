@@ -22,7 +22,7 @@ jobs:
 # This workflow contains a single job called "scan"
  #Add new job for the Android Apk build
   DeskAppMacOs:
-    name: Generate DeskApp
+    name: Generate DeskApp MacOs
     # Runs on Define which system to be used to build the source code ubuntu-20.04 or ubuntu-18.04, For
     # Mac OS one can use macos-12
     runs-on: macos-12
@@ -39,11 +39,11 @@ jobs:
       - name: Upload Package
         uses: actions/upload-artifact@v3.1.1
         with:
-             name: DeskTopApp
-             path: /build/compose/binaries/main-release/dmg/*.dmg
+             name: DeskTopAppMacOs
+             path: build/compose/binaries/main-release/dmg/*.dmg
 
   DeskAppLinux:
-    name: Generate DeskApp
+    name: Generate DeskApp Deb
     # Runs on Define which system to be used to build the source code ubuntu-20.04 or ubuntu-18.04, For
     # Mac OS one can use macos-12
     runs-on: ubuntu-18.04
@@ -60,5 +60,25 @@ jobs:
       - name: Upload Package
         uses: actions/upload-artifact@v3.1.1
         with:
-          name: DeskTopApp
+          name: DeskTopAppDeb
           path: build/compose/binaries/main-release/deb/*.deb
+  DeskAppWindows:
+    name: Generate DeskApp Deb
+    # Runs on Define which system to be used to build the source code ubuntu-20.04 or ubuntu-18.04, For
+    # Mac OS one can use macos-12
+    runs-on: windows-2022
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Setup JDK
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'corretto'
+          java-version: '18'
+      - name: Build Package
+        run: bash ./gradlew packageReleaseMsi --stacktrace
+      - name: Upload Package
+        uses: actions/upload-artifact@v3.1.1
+        with:
+          name: DeskTopAppMsi
+          path: ${{ github.workspace }}/build/compose/binaries/main-release/msi/*.exe

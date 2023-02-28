@@ -16,6 +16,7 @@ repositories {
 }
 
 kotlin {
+
     jvm {
         compilations.all {
             kotlinOptions.jvmTarget = "11"
@@ -41,6 +42,10 @@ compose.desktop {
             targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
             packageName = "DeskTopApp"
             packageVersion = "1.0.0"
+            buildTypes.release.proguard {
+                obfuscate.set(true)
+                configurationFiles.from(project.file("proguard-rules.pro"))
+            }
         }
     }
 }
