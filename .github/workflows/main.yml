@@ -63,7 +63,7 @@ jobs:
           name: DeskTopAppDeb
           path: build/compose/binaries/main-release/deb/*.deb
   DeskAppWindows:
-    name: Generate DeskApp Deb
+    name: Generate DeskApp Msi
     # Runs on Define which system to be used to build the source code ubuntu-20.04 or ubuntu-18.04, For
     # Mac OS one can use macos-12
     runs-on: windows-2022
@@ -81,4 +81,4 @@ jobs:
         uses: actions/upload-artifact@v3.1.1
         with:
           name: DeskTopAppMsi
-          path: ${{ github.workspace }}/build/compose/binaries/main-release/msi/*.exe
+          path: ${{ github.workspace }}\build\compose\binaries\main-release\msi\*.exe
