@@ -15,6 +15,8 @@ repositories {
     maven("https://maven.pkg.jetbrains.space/public/p/compose/dev")
 }
 
+var ktorVersion ="2.2.3"
+val slf4j ="2.0.7"
 kotlin {
 
     jvm {
@@ -27,6 +29,21 @@ kotlin {
         val jvmMain by getting {
             dependencies {
                 implementation(compose.desktop.currentOs)
+                implementation("io.ktor:ktor-server-core:$ktorVersion")
+                implementation("io.ktor:ktor-server-netty:$ktorVersion")
+                implementation("io.ktor:ktor-server-websockets:$ktorVersion")
+                implementation("io.ktor:ktor-client-core:$ktorVersion")
+                implementation("io.ktor:ktor-client-cio:$ktorVersion")
+                implementation("io.ktor:ktor-client-websockets:$ktorVersion")
+                implementation("io.ktor:ktor-client-jetty:$ktorVersion")
+                implementation("io.ktor:ktor-client-logging:$ktorVersion")
+                // https://mvnrepository.com/artifact/org.slf4j/slf4j-api
+                implementation("org.slf4j:slf4j-api:$slf4j")
+                // https://mvnrepository.com/artifact/org.slf4j/slf4j-log4j12
+                //slf4j-log4j12
+                //testImplementation("org.slf4j:slf4j-log4j12:1.2")
+                implementation("org.slf4j:slf4j-log4j12:$slf4j")
+                //implementation("io.ktor:ktor-server-jetty:$ktorVersion")
                // implementation("com.guardsquare:proguard-gradle:7.2.1")
             }
         }
